@@ -1,0 +1,19 @@
+# Node
+node_modules/
+frontend/dist/
+frontend/.env
+npm-debug.log*
+
+# Java
+backend/target/
+*.class
+*.jar
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db

@@ -1,0 +1,88 @@
+spring:
+  application:
+    name: resume-builder
+  datasource:
+    url: jdbc:h2:file:./data/resumebuilder
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: ""
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+server:
+  port: 8080
+
+app:
+  jwt:
+    secret: "dev-secret-change-me-please-0123456789abcdef-0123456789abcdef"
+    expiration-ms: 86400000
+
+---
+# MySQL 8 — run with: --spring.profiles.active=mysql
+spring:
+  config:
+    activate:
+      on-profile: mysql
+  datasource:
+    url: ${DB_URL:jdbc:mysql://localhost:3306/resumebuilder?useSSL=false&serverTimezone=UTC&createDatabaseIfNotExist=true}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.MySQLDialect
+  h2:
+    console:
+      enabled: false
+
+---
+# PostgreSQL 16 — run with: --spring.profiles.active=postgres
+spring:
+  config:
+    activate:
+      on-profile: postgres
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/resumebuilder}
+    driver-class-name: org.postgresql.Driver
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  h2:
+    console:
+      enabled: false
+
+---
+# Supabase (hosted PostgreSQL) — run with: --spring.profiles.active=supabase
+# Set SUPABASE_DB_URL, SUPABASE_DB_USERNAME and SUPABASE_DB_PASSWORD.
+# SUPABASE_DB_URL example (session pooler, recommended):
+#   jdbc:postgresql://aws-0-<region>.pooler.supabase.com:5432/postgres
+# The database password is the one set when creating the Supabase project.
+spring:
+  config:
+    activate:
+      on-profile: supabase
+  datasource:
+    url: ${SUPABASE_DB_URL:jdbc:postgresql://localhost:5432/postgres}
+    driver-class-name: org.postgresql.Driver
+    username: ${SUPABASE_DB_USERNAME:postgres}
+    password: ${SUPABASE_DB_PASSWORD:postgres}
+    hikari:
+      data-source-properties:
+        sslmode: require
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  h2:
+    console:
+      enabled: false
