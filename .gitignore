@@ -6,6 +6,7 @@ npm-debug.log*
 
 # Java
 backend/target/
+backend/.env
 *.class
 *.jar
 
