@@ -39,6 +39,7 @@ public class SecurityConfig {
                         "/api/auth/forgot-password", "/api/auth/reset-password").permitAll()
                 .requestMatchers("/h2-console/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/templates").permitAll()
+                .requestMatchers("/actuator/health").permitAll()
                 .anyRequest().authenticated())
             .headers(headers -> headers.frameOptions(frame -> frame.sameOrigin()))
             .exceptionHandling(ex -> ex.authenticationEntryPoint((request, response, authException) -> {
